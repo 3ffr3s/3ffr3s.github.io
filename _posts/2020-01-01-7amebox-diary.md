@@ -1,3 +1,10 @@
+---
+layout: post
+title: "7amebox-diary"
+comments : true
+category : War Game
+---
+
 # 문제
 ***
 
