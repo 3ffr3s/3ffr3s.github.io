@@ -1,6 +1,8 @@
 ---
 layout: post
 title: First post!
+comments : true
+category : Machine Learning
 image: /img/hello_world.jpeg
 ---
 
