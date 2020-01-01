@@ -1,3 +1,10 @@
+---
+layout: post
+title: "baskinrobins31"
+comments : true
+category : War Game
+---
+
 # 문제
 ***
 
