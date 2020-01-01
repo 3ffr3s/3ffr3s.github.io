@@ -1,5 +1,10 @@
-# Universal adversarial perturbations
-***
+---
+layout: post
+title: Universal adversarial perturbations
+comments : true
+category : Machine Learning
+---
+
 ## 1. Introduction
 위 논문은 DNN classifier를 속일 수 있는 단일 universal perturbation이 존재함을 보여준다. 기존의 adversarial perturbation은 data point에 의존적이어서 각 data point에만 적용할 수 있는 반면에 universal perturbation은 Fig. 1에서 볼 수 있듯 하나의 perturbation을 모든 natural image에 적용할 수 있다. main contribution은 다음과 같다.
 - 최신 DNN classifier를 속일 수 있는 universal image-agnostic perturbation이 존재함을 보여줌
