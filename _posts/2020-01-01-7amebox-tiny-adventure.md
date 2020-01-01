@@ -1,3 +1,10 @@
+---
+layout: post
+title: "7amebox-tiny-adventure"
+comments : true
+category : War Game
+---
+
 # 문제
 ***
 
