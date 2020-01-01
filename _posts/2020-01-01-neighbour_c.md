@@ -1,3 +1,10 @@
+---
+layout: post
+title: "neighbour_c"
+comments : true
+category : War Game
+---
+
 # 문제
 ***
 
