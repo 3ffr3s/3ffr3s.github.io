@@ -1,3 +1,10 @@
+---
+layout: post
+title: "7amebox-name"
+comments : true
+category : War Game
+---
+
 # 문제
 ***
 
