@@ -19,12 +19,11 @@ description: 여유롭게 천천히
 # --- Navigation bar options --- #
 
 # List of links in the navigation bar
-navbar-links:
-  Category: 
-    - Machine Learning: "/category/Machine Learning"
-    - System Hacking: 
-      - War Game: "/category/War Game"
-      - Windows: "/category/Windows"
+navbar-links: 
+  Machine Learning: "/category/Machine Learning"
+  System Hacking: 
+    - War Game: "/category/War Game"
+    - Windows: "/category/Windows"
 
 # Image to show in the navigation bar - image must be a square (width = height)
 # Remove this parameter if you don't want an image in the navbar
