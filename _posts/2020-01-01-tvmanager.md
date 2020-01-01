@@ -1,3 +1,10 @@
+---
+layout: post
+title: "tvmanager"
+comments : true
+category : War Game
+---
+
 # 문제
 ***
 
