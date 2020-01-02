@@ -6,7 +6,7 @@ category : Machine Learning
 ---
 
 해당 영상은 Adversarial Examples에 대한 내용을 다룬다. 
-<br/>
+<br/><br/>
 기계학습의 목적 : Input과 Output 간의 관계성을 찾는 것 <br/>
 => DNN, SVM 등의 매커니즘을 통해 Input과 Output 사이의 관계성을 쉽게 설명할 수 있게 되었다. 
 <br/>
@@ -25,7 +25,7 @@ e.g. 아마존 알렉사 Device를 오동작 시키는 음악 생성 <br/>
 => 원하는 만큼 코드를 늘릴 수 있어서 변조가 용이하지만 코드의 길이가 원래보다 늘어났기 때문에 탐지가 쉽다.
 #### 방법2 : Internal Payload
 프로그램의 실행 및 기능에 영향을 주지 않는 부분 변조
-(e.g. String이 저장되어 있는 영역 등)
+(e.g. String이 저장되어 있는 영역 등) <br/>
 ![Alt text](../img/external_internal_payload.JPG)
 <br/><br/>
 Adversarial Examples 생성을 통해 Model Decision Boundary (기계학습을 통해 찾아낸 분류 Boundary) 뿐만 아니라 Task Decision Boundary (기계학습이 아닌 V3, 카스퍼스키와 같은 분류 문제를 해결하는 기존의 시스템이 찾아낸 Boundary)도 속일 수 있다. 즉, A.I를 (Adversarial Examples) 매개체로 해서 기존 시스템 공격을 자동화 할 수 있다. (e.g. Adversarial Examples를 Malware Detection에 적용했을 때 어베스트나 카스퍼스키 등에 대해서 오탐률이 10% 정도 증가했다.) 
@@ -35,7 +35,7 @@ White Box Attack에 성공하면 이를 Black Box Attack에도 적용할 수 있
 기계 학습의 Transferability <br/>
 => 데이터의 도메인이 비슷하면 데이터가 똑같지 않더라도 유사하게 연관된 작업을 잘 수행한다.
 
-<br/><br/>
+<br/>
 ###### 유투브 링크 : [2019 SW 안전 국제 컨퍼런스 - 기계학습 방법론의 취약성 분석 (이상근 한양대 교수)](https://www.youtube.com/watch?v=aho30FijZQc)
 
 
