@@ -1,5 +1,10 @@
-# 2019 SW 안전 국제 컨퍼런스 - 기계학습 방법론의 취약성 분석
-***
+---
+layout: post
+title: 2019 SW 안전 국제 컨퍼런스 - 기계학습 방법론의 취약성 분석
+comments : true
+category : 
+---
+
 해당 영상은 Adversarial Examples에 대한 내용을 다룬다. 
 <br/>
 기계학습의 목적 : Input과 Output 간의 관계성을 찾는 것
