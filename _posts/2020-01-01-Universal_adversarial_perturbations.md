@@ -21,7 +21,7 @@ universal perturbation은 대부분의 x ∈  R^d에 대해서 다음 식을 만
 <img src="../img/formulation.JPG" width="40%" height="30%"></img>
 ( µ : R^d에 존재하는 이미지들의 분포 의미 , k : 이미지의 label을 출력하는 분류 함수)
 <br/><br/>
-벡터 v는 다음의 조건을 만족한다. <br/><br/>
+벡터 v는 다음의 조건을 만족한다. <br/>
 
 <img src="../img/constraint.JPG" width="40%" height="30%"></img>
  (p ∈ [1, ∞)) <br/><br/>
@@ -29,7 +29,7 @@ universal perturbation은 대부분의 x ∈  R^d에 대해서 다음 식을 만
 
 ![Alt text](../img/Figure_2.JPG)
 ###### Figure 2: Schematic representation of the proposed algorithm used to compute universal perturbations. In this illustration, data points x1, x2 and x3 are super-imposed, and the classification regions Ri (i.e., regions of constant estimated label) are shown in different colors. Our algorithm proceeds by aggregating sequentially the minimal perturbations sending the current perturbed points xi + v outside of the corresponding classification region Ri.
- **알고리즘** <br/><br/>
+ **알고리즘** <br/>
 X = {x1,...,xm} 은 µ에서 추출한 이미지의 집합이라 하자. 알고리즘은 위의 노름 조건과 fooling rate를 만족하는 perturbation v를 찾고자 한다. 알고리즘은 Fig. 2와 같이 현재 perturbed point인 xi + v를 decision boundary로 보내는 가장 작은 ∆vi를 구한다. 그리고 ∆vi를 v에 더한다. (현재의 perturbation인 v가 xi의 classification region을 변경하지 못하면 ∆vi를 계산한다.) 위의 행위를 X의 data point에 대해서 반복한다. ∆vi는 아래의 최적화 문제를 통해 구할 수 있다. <br/><br/>
 <img src="../img/formulation2.JPG" width="40%" height="30%"></img>
 <br/><br/>
@@ -45,14 +45,14 @@ X = {x1,...,xm} 은 µ에서 추출한 이미지의 집합이라 하자. 알고�
 Fig. 6에서는 X의 크기에 따른 fooling rate를 나타내었다. ImageNet은 총 1000개의 class를 포함하는데 X가 500개의 이미지일 때에도 30%가 넘는 fooling rate를 얻는다. 이를 통해서 universal perturbation은 처음보는 이미지 (class)에도 적용됨을 확인할 수 있다. 
 ![Alt text](../img/Figure_6.JPG)
 ###### Figure 6: Fooling ratio on the validation set versus the size of X. Note that even when the universal perturbation is computed on a very small set X (compared to training and validation sets), the fooling ratio on validation set is large.
-**Cross-model universality** <br/><br/>
+**Cross-model universality** <br/>
 universal perturbation은 처음보는 이미지에 대해서 universality인 성질을 갖는 것 뿐만 아니라 서로 다른 model에 대해서도 어느 정도 universality를 갖는다. 즉, 특정 모델에서 찾은 (계산된) perturbation이 다른 모델에도 적용된다. 이는 Table 2에서 확인할 수 있다.   
 ![Alt text](../img/Table_2.JPG)
 ###### Table 2: Generalizability of the universal perturbations across different networks. The percentages indicate the fooling rates. The rows indicate the architecture for which the universal perturbations is computed, and the columns indicate the architecture for which the fooling rate is reported.
-**Visualization of the effect of universal perturbation** <br/><br/>
-universal perturbation의 효과에 대해 살펴보기 위해서 validation set의 label 분포를 그래프로 나타내었다. 각 노드는 perturbation이 적용되기 전의 label이고, 엣지 (i -> j)는 i class에 있는 이미지가 대부분 j class로 바꼈음을 나타낸다. Fig. 7의 그래프는 GoogleLeNet을 이용해서 구성했다. 대부분의 노드는 하나의 엣지를 가졌고, 지배적인 label이 존재했다. 해당 논문에서는 지배적인 label이 더 큰 image space를 갖는다고 가설을 세웠다. (image space가 input space를 말하는건듯??) <br/><br/>
+**Visualization of the effect of universal perturbation** <br/>
+universal perturbation의 효과에 대해 살펴보기 위해서 validation set의 label 분포를 그래프로 나타내었다. 각 노드는 perturbation이 적용되기 전의 label이고, 엣지 (i -> j)는 i class에 있는 이미지가 대부분 j class로 바꼈음을 나타낸다. Fig. 7의 그래프는 GoogleLeNet을 이용해서 구성했다. 대부분의 노드는 하나의 엣지를 가졌고, 지배적인 label이 존재했다. 해당 논문에서는 지배적인 label이 더 큰 image space를 갖는다고 가설을 세웠다. (image space가 input space를 말하는건듯??) <br/>
 
-**Fine-tuning with universal perturbations** <br/><br/>
+**Fine-tuning with universal perturbations** <br/>
 1/2 확률로 universal perturbation가 적용된 training data를 이용해서 VGG-F 모델을 5 epoch 동안 훈련했다. 그 이후에 이 모델에 대해서 새로운 universal perturbation을 찾고 validation data에 이를 적용한 결과 fooling rate는 76.2%가 나왔다. (fine tuning을 하지 않았을 때는 93.7%였다.) update된 모델에 대해서 동일한 훈련을 반복한 결과 fooling rate는 80%로 증가했다. 따라서 fine tuning으로 어느 정도의 robustness 향상을 얻을 수는 있지만, universal perturbation을 완전히 방어할 수는 없다. 
 ## 4. Explaining the vulnerability to universal perturbations
 이 섹션에서는 DNN classifier가 universal perturbation에 취약한 이유에 대해서 분석한다. 우선 universal perturbation의 독특한 특성을 파악하기 위해서 validation data에 대한 fooling rate를 다른 perturbation들과 비교를 해봤다. 비교 대상에는 random perturbation, DF와 FGSM을 사용한 adversarial perturbation, Training data에 대한 adversarial perturbation의 합 등이 있다. 비교 결과는 Fig. 8과 같다. universal perturnbation은 노름이 2000 일 때도 85%라는 높은 fooling rate를 갖는다. 이에 반해 random perturbation은 10%의 fooling rate를 갖는다. 이는 universal perturbation이 decision boundary 기하학적 상관관계를 파악하고 이용했음을 의미한다. 만약 decision boundary의 방향 간에 상관관계가 없다면 최적의 universal perturbation과 random perturbation의 노름 크기는 비슷했을 것이다. [4]에 따르면 data의 label을 바꾸기 위한 random perturbation의 노름 크기는 O(d^1/2 * ||r||2)에 따라 움직인다. (d는 data의 차원을 의미) 그리고 ImageNet classification 문제에서 해당 값은 대략 2 X 10^4 이다. 이는 universal perturbation의 노름 값인 2000 보다 10배 이상 큰 값이다. 이러한 차이는 decision boundary의 기하학적 구조에 중복이 존재함을 의미한다.   
