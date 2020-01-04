@@ -328,26 +328,14 @@ def write_memory(self, addr, data, length):
 page 할당 순서 및 stack 주소 
 
 
-1.0x59000 (diary list) 메모리 구조 =>  \| diary 개수 \| 첫 번째 diary 주소 \| 두 번째 diary 주소 \| ... 
-
-
-2.0xc4000 (첫 번째 diary)
-
-
-3.0x1c000
-
-
-4.0x3a000
-
-
+1.0x59000 (diary list) 메모리 구조 <br/>
+  =>  \| diary 개수 \| 첫 번째 diary 주소 \| 두 번째 diary 주소 \| ... <br/>
+2.0xc4000 (첫 번째 diary) <br/>
+3.0x1c000 <br/>
+4.0x3a000 <br/>
 ...
-
-
-8.0xf1000
-
-
-9.0x7c000
-
+8.0xf1000 <br/>
+9.0x7c000 <br/>
 
 stack 주소 : 0xf4000 - 0xf6000
 
@@ -377,10 +365,9 @@ sub_0x60f()
 
 canary 값을 우회한 뒤 flag 값을 읽어오기 위해서 ROP chain을 다음과 같이 구성한다.
 
-------------esp---------------- 
+------------esp---------------
 
-
-| 쓰레기 값  | canary | "A" * 9 | pr2_pr1_pr0_ret | 0x7 | 0xf5000 | 0x4 | syscall (0x625) | canary | "A" * 9 | pr2_pr1_pr0_ret | "AAA" | 0x200 | 0x7c000 | 0x60f | 0x7c000 + 5 |
+\| 쓰레기 값 \| canary \| "A" * 9 \| pr2_pr1_pr0_ret \| 0x7 \| 0xf5000 \| 0x4 \| syscall (0x625) \| canary \| "A" * 9 \| pr2_pr1_pr0_ret \| "AAA" \| 0x200 \| 0x7c000 \| 0x60f \| 0x7c000 + 5 \|
 
 4. 입력으로 flag 파일을 pipline에 추가하고 flag 파일을 읽어오는 코드를 넣어준다. 
 
