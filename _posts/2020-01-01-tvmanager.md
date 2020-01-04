@@ -22,7 +22,7 @@ file 명령어의 결과는 다음과 같다.
 tvmanager: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-, for GNU/Linux 2.6.24, BuildID[sha1]=a573c759b08864e640050b1130cc9bfcc98d671b, stripped
 ```
 
-바이너리 코드 <br/><br/>
+바이너리 코드 <br/>
 
 영화 목록 구조체의 구성은 다음과 같다. (malloc(0x14)를 통해 할당)
 ```
@@ -138,7 +138,7 @@ signed int sub_1DA7()
 }
 ```
 
-__sub_1DA7()__ 는 영화 내용을 소켓을 통해서 전송하는 함수이다. 해당 함수는 영화 content의 크기가 0x400 이상이면 content를 힙에 저장하고 0x399 이하면 스택에 해당 content를 저장한다. 그런데 content의 크기가 0x399 이하일 때는 길이 검사 없이 fgetc의 return 값이 -1일 때 까지 파일의 내용을 읽어온다.<br/><br/>
+__sub_1DA7()__ 는 영화 내용을 소켓을 통해서 전송하는 함수이다. 해당 함수는 영화 content의 크기가 0x400 이상이면 content를 힙에 저장하고 0x399 이하면 스택에 해당 content를 저장한다. 그런데 content의 크기가 0x399 이하일 때는 길이 검사 없이 fgetc의 return 값이 -1일 때 까지 파일의 내용을 읽어온다.<br/>
 
 __취약점__ <br/>
 __sub_18B0()__ 함수에서 hash collision을 이용하면 동일한 파일에 두 번 write 할 수 있다. 그리고 이를 이용하면 __sub_1DA7()__ 함수에서 leak과 bof를 발생시킬 수 있다.
@@ -153,7 +153,7 @@ hash collision 쌍 (a,b)를 title로 하는 영화를 차례대로 등록한다.
 4. __sub_1DA7()__ 에서 bof를 한 번 더 일으켜서 system 함수를 호출하면 쉘을 딸 수 있다,
 
 __주의할 점 1__ <br/>
-leak 할 때 hash collision 쌍 (a,b)를 title로 하는 영화를 등록한 프로세스에서 __sub_1DA7()__를 호출하면 stackd에 있는 쓰레기 값이 Y 내용으로 overwrite 되어 있어서 leak을 할 수 없다. 따라서 hash collision 쌍을 등록한 후 프로세스를 종료하고 새로운 프로세스에서 a의 content를 읽어와야 한다. <br/><br/>
+leak 할 때 hash collision 쌍 (a,b)를 title로 하는 영화를 등록한 프로세스에서 __sub_1DA7()__를 호출하면 stackd에 있는 쓰레기 값이 Y 내용으로 overwrite 되어 있어서 leak을 할 수 없다. 따라서 hash collision 쌍을 등록한 후 프로세스를 종료하고 새로운 프로세스에서 a의 content를 읽어와야 한다. <br/>
 
 __주의할 점 2__ <br/>
 hash collision 쌍 두 개만 이용하면 위의 문제를 해결할 수 있다. 우리가 영화 목록 구조체의 title이 저장되어 있는 곳을 canary 주소로 바꿨기 때문에 title 중복 조건에 걸리지 않고 해당 title로 영화를 한 번 더 등록할 수 있다.
