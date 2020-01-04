@@ -60,7 +60,7 @@ mic_check.firm을 통해서 실행하는 코드를 알아내기 위해서 decomp
 (op_x0 ~ op_x30에서 수행되는 코드를 지우고 각 메소드에서 수행하는 명령어를 print 함수로 출력하도록 바꿨다.)
 
 
-++주의해야 할 것++
+**주의해야 할 것**
 
 jmp나 call 등을 수행하는 operator는 call (pc+0x123)와 같이 pc를 기반으로 실행된다. 그런데 이때 pc값은 현재 실행하고 있는 instruction의 주소가 아닌 다음 instruction의 주소를 기반으로 한다.  
 
@@ -92,20 +92,15 @@ payload= "flag\x00"
 
 payload+=flag 파일을 open하고 pipeline에 추가하는 syscall instruction
 
-
 payload+=pipeline에 추가되어 있는 flag파일 내용을 버퍼에 write하는 syscall instruction
-
 
 payload+=플래그 값이 write된 버퍼 읽어오는 syscall instruction
 
 payload+="A"*(57-len(payload))
 
-
 payload+=canary
 
-
 payload+="AAA"
-
 
 payload+=0xf5000-0x3c
 
@@ -354,9 +349,12 @@ print p.recvline()
 # 알게 된 것
 ***
 1. sys.stdin.readline(size) 는 size만큼 or "\n"까지 입력을 받는다.
+
 2.  ```python -u```는 stdout과 stderr의 버퍼(버퍼링)를 없애는 옵션이다. 
+
 3. pwntools의 process에서 리눅스 명령어를 사용하려면 
 ```process('echo hello 1>&2', shell=True)```나 ```process(['python','-u','/home/sungyun/round2/7amebox-name/vm_name.py'])```와 같이 사용해야 한다.
+
 4. __special_method__에서 __??__는 스페셜 변수나 메서드에 사용되는 컨벤션이다. __getitem__은 var['key']와 같이 사용했을 때 불리는 메소드이다.
 
 참조 :파이썬 언더스코어(_)에 대하여 <https://mingrammer.com/underscore-in-python/>
