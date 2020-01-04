@@ -353,6 +353,6 @@ p.close()
 # 알게 된 것
 ***
 1. python 딕셔너리는 key 삽입 순서랑 key_list에 저장되는 순서가 다르다. 
-2. context.log_level = 'debug' <br/>   
+2. context.log_level = 'debug'   
    => send, recv 하는 data를 바이트 단위로 보여주고 error가 발생하는 부분을 보여준다.
 
