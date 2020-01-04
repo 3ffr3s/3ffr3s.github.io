@@ -56,24 +56,20 @@ void __fastcall __noreturn sub_8D0(FILE *a1)
 
 fprintf는 출력하는 문자열의 길이가 길면 내부적으로 malloc을 호출한다. (malloc은 fprintf 함수에 의해 호출되는 vfprintf에서 호출됨) <br/>
 
-GNU C library는 malloc, realloc, free에 hook을 제공한다. (이는 hook 값을 변경 가능하도록 하여 디버깅을 수월하게 할 수 있도록 하기 위함이다.) 위의 함수들은 호출되면 hook이 존재하는지 확인하고 만약 존재하면 hook에 저장되어 있는 값을 호출한다. 따라서 hook을 one_gadget으로 덮어쓰면 쉘을 획득할 수 있다. <br/><br/>
-
+GNU C library는 malloc, realloc, free에 hook을 제공한다. (이는 hook 값을 변경 가능하도록 하여 디버깅을 수월하게 할 수 있도록 하기 위함이다.) 위의 함수들은 호출되면 hook이 존재하는지 확인하고 만약 존재하면 hook에 저장되어 있는 값을 호출한다. 따라서 hook을 one_gadget으로 덮어쓰면 쉘을 획득할 수 있다.
 ## exploit 방법
 1. 스택에 존재하는 _IO_2_1_stderr_와 sfp를 통해서 libc와 스택 주소를 leak할 수 있다. 
 2. libc leak을 통해서 __malloc_hook의 주소를 알아내고 스택에 __malloc_hook의 주소를 만든다. one_gadget과 hook에 저장되어 있는 값은 상위 4바이트 값이 동일하다. 따라서 하위 4바이트만 덮어쓰면 되는데 한 번에 4바이트 값을 덮어쓰면 fprintf에서 너무 많은 문자열이 출력되어서 fprintf가 터져버린다. 이를 방지하기 위해서 스택에 __malloc_hook 주소와 __malloc_hook+2의 주소를 만든다.
 3. 스택에 만든 __malloc_hook 주소와 __malloc_hook+2의 주소를 참조해서 __malloc_hook의 값을 one_gadget의 주소로 덮어쓴다. (one_gadget의 constraint가 [rsp+0x70] == NULL이었는데 다행이 해당 위치에 NULL 값이 있었다.) 
-
-<br/><br/>
+<br/>
 
 c.f) remote 환경에서는 stderr에 fprintf를 하면 나에게 출력이 오지 않는다. 따라서 stderr를 stdout으로 바꿔줘야 한다. 방법은 다음과 같다. <br/>
 stderr->_fileno가 2로 설정되어 있는데 이 값을 1으로 덮어써주면 stderr를 stdout으로 바꿀 수 있다. stderr->_fileno는 stderr + 112 에 위치하고 있다. (혁이꺼 블로그 참조)  
 <br/>
 이 문제에서는 stack에 stderr 값이 존재하기 때문에 이 값 (하위 1바이트 0x40으로 고정)에 112 (0x70)를 더해준 값을 해당 위치에 덮어쓴다. 이를 위해서 스택에 stderr를 가리키는 값을 만들어줘야 하는데 5 - 8 비트가 랜덤이어서 확률이 1/16이 된다.
+<br/>
 
-
-<br/><br/>
 __malloc_hook을 덮어쓰는 방법 외에도 fprintf ret 값을 one_gadget으로 덮어쓰는 방법이 있다. (혁이 방법은 libc의 stdin에 있는 _IO_jump_t vtable을 덮어쓰는 건데 이건 아직 잘 모르겠다...이 방법은 libc에서 vtable을 검증하는 IO_validate_vtable을 호출해서 dl_open_hook도 덮어줘야 한다는데...나중에 찾아보도록 하자ㅋㅋㅋ)
-<br/><br/>
 # 풀이
 ***
 ```
