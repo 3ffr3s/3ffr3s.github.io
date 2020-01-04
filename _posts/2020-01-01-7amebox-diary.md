@@ -328,7 +328,7 @@ def write_memory(self, addr, data, length):
 page 할당 순서 및 stack 주소 
 
 
-1.0x59000 (diary list) 메모리 구조 =>  | diary 개수 | 첫 번째 diary 주소 | 두 번째 diary 주소 | ... 
+1.0x59000 (diary list) 메모리 구조 =>  \| diary 개수 \| 첫 번째 diary 주소 \| 두 번째 diary 주소 \| ... 
 
 
 2.0xc4000 (첫 번째 diary)
