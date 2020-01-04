@@ -332,8 +332,8 @@ page 할당 순서 및 stack 주소
   =>  \| diary 개수 \| 첫 번째 diary 주소 \| 두 번째 diary 주소 \| ... <br/>
 2.0xc4000 (첫 번째 diary) <br/>
 3.0x1c000 <br/>
-4.0x3a000 <br/>
-...
+4.0x3a000 <br/><br/>
+... <br/><br/>
 8.0xf1000 <br/>
 9.0x7c000 <br/>
 
@@ -359,10 +359,9 @@ sub_0x60f()
     0x632:    op_x7    pop r2
     0x634:    op_x7    pop r1
     0x636:    op_x7    ret
-...
+    ...
 }
 ```
-
 canary 값을 우회한 뒤 flag 값을 읽어오기 위해서 ROP chain을 다음과 같이 구성한다.
 
 ------------esp---------------
