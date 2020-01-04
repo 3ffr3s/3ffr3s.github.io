@@ -87,14 +87,14 @@ ret
 1. read함수를 통해서 ebp-3에 canary 값을 넣어주고 sfp, ret를 내가 원하는 값으로 덮어쓴다. (sfp는 0xf5000, ret는 read(0,ebp-0x3c,0x42)의 주소로 덮어쓴다.) 
 2. 두 번째로 실행되는 read 함수를 통해서 0xf5000-0x3c에 페이로드를 구성한다. 
 
-payload= "flag\x00"
-payload+=flag 파일을 open하고 pipeline에 추가하는 syscall instruction
-payload+=pipeline에 추가되어 있는 flag파일 내용을 버퍼에 write하는 syscall instruction
-payload+=플래그 값이 write된 버퍼 읽어오는 syscall instruction
-payload+="A"*(57-len(payload))
-payload+=canary
-payload+="AAA"
-payload+=0xf5000-0x3c
+payload= "flag\x00" <br/>
+payload+=flag 파일을 open하고 pipeline에 추가하는 syscall instruction <br/>
+payload+=pipeline에 추가되어 있는 flag파일 내용을 버퍼에 write하는 syscall instruction <br/>
+payload+=플래그 값이 write된 버퍼 읽어오는 syscall instruction <br/>
+payload+="A"*(57-len(payload)) <br/>
+payload+=canary <br/>
+payload+="AAA" <br/>
+payload+=0xf5000-0x3c <br/>
 
 # 풀이
 ***
