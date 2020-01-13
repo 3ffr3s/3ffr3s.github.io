@@ -24,15 +24,16 @@ universal perturbation은 대부분의 x ∈  R^d에 대해서 다음 식을 만
 <br/><br/>
 벡터 v는 다음의 조건을 만족한다. <br/>
 
-<img src="../img/constraint.JPG" width="40%" height="30%">
- (p ∈ [1, ∞)) <br/><br/>
+![Alt text](../img/constraint.JPG)
+<br/>
+(p ∈ \[1, ∞)) <br/><br/>
 ξ를 통해서 perturbation의 크기를 조절할 수 있고 δ를 통해서 fooling rate를 조절할 수 있다. <br/><br/>
 
 ![Alt text](../img/Figure_2.JPG)
 ###### Figure 2: Schematic representation of the proposed algorithm used to compute universal perturbations. In this illustration, data points x1, x2 and x3 are super-imposed, and the classification regions Ri (i.e., regions of constant estimated label) are shown in different colors. Our algorithm proceeds by aggregating sequentially the minimal perturbations sending the current perturbed points xi + v outside of the corresponding classification region Ri.
  **알고리즘** <br/>
 X = {x1,...,xm} 은 µ에서 추출한 이미지의 집합이라 하자. 알고리즘은 위의 노름 조건과 fooling rate를 만족하는 perturbation v를 찾고자 한다. 알고리즘은 Fig. 2와 같이 현재 perturbed point인 xi + v를 decision boundary로 보내는 가장 작은 ∆vi를 구한다. 그리고 ∆vi를 v에 더한다. (현재의 perturbation인 v가 xi의 classification region을 변경하지 못하면 ∆vi를 계산한다.) 위의 행위를 X의 data point에 대해서 반복한다. ∆vi는 아래의 최적화 문제를 통해 구할 수 있다. <br/><br/>
-<img src="../img/formulation2.JPG" width="40%" height="30%">
+![Alt text](../img/formulation2.JPG)
 <br/><br/>
 알고리즘의 pseudo 코드는 다음과 같다.
 ![Alt text](../img/Algorithm.JPG)
@@ -60,11 +61,11 @@ universal perturbation의 효과에 대해 살펴보기 위해서 validation set
 ![Alt text](../img/Figure_8.JPG)
 ###### Figure 8: Comparison between fooling rates of different perturbations. Experiments performed on the CaffeNet architecture.
 validation set에 있는 x에 대한 adversarial perturbation vector r(x)의 정의는 다음과 같다.  
-<img src="../img/formulation3.JPG" width="40%" height="30%"></img>
+![Alt text](../img/formulation3.JPG)
 <br/>
 이 때 r(x)는 decision boundary (즉, x+r(x)에 위치한 decision boundary)에 대해 수직이다. (법선이 된다.)
 decision boundary의 서로 다른 영역 간의 상관관계를 파악하기 위해서 다음과 같은 matrix를 정의했다.
-<img src="../img/matrix.JPG" width="40%" height="30%"></img>
+![Alt text](../img/matrix.JPG)
 <br/>
 위 matrix N은 validation set의 n개의 데이터의 근처에 있는 decision boundary에 대한 법선 벡터로 구성된다. binary linear classifier에서 decision boundary는 hyperplane이다. 또한 법선 벡터가 한 직선 위에 있기 때문에 N의 rank는 1이다. 더 일반적인 경우에 대해서 살펴보기 위해서, 복잡한 classifier (CaffeNet 모델)에 대한 matrix N의 singular value들을 계산해봤다. (여기서 rank(N)은 0이 아닌 singular value의 개수에 대응된다.) Fig. 9가 이에 해당한다. 여기에서는 비교를 위해 unit sphere에서 무작위로 샘플링한 n개의 벡터로 구성된 matrix의 singular value들을 추가했다. (근데 여기서 Y축이 의미하는 것이 정확히 무엇인지 모르겠다. singular value의 개수는 아닌거 같고...) Fig.9를 보면 index의 크기가 증가함에 따라 랜덤 추출한 matrix의 singular value는 천천히 감소하는 반면에 matrix N의 singular value는 빠르게 감소하는 것을 볼 수 있다. 이를 통해서 DNN의 decision boundary 간에 중복 및 상관관계가 존재함을 알 수 있다. 이는 대부분의 법선 벡터를 포함하는 d`(d` << d) 차원의 subspace S가 존재함을 의미한다. 이 논문에서는 universal perturbation의 fooling rate가 높은 이유가 decision boundary의 서로 다른 영역 간의 상관관계를 담은 subspace가 존재하기 때문이라고 추정했다. 이 subspace는 법선 벡터를 포함하기 때문에 이 subspace에 속한 perturbation은 classifier을 속일 수 있다. 이를 검증하기 위해서 100개의 singular vector로 구성된 subspace에서 노름 값이 2000인 random vector를 추출했다. 이 vector의 fooling rate는 38%가 나왔다. 즉, 잘 구성된 subspace에서 무작위로 뽑은 vector는 random perturbation보다 훨씬 성능이 좋다. (random perturbation의 fooling rate는 10%였다.) <br/>
 Fig. 10에서는 서로 다른 decision boundary의 correlation을 담은 subspace S를 나타내었다. 위 논문에서 제시한 알고리즘은 subspace에 존재하는 random vector를 고르는 것이 아니라 fooling rate를 최대화 할 수 있는 방향을 찾는다.
