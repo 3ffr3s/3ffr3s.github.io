@@ -18,12 +18,12 @@ category : Machine Learning
 
 ## 2. Universal perturbations
 universal perturbation은 대부분의 x ∈  R^d에 대해서 다음 식을 만족하는 벡터 v를 찾는 것이다. <br/><br/> 
-<img src="../img/formulation.JPG" width="40%" height="30%"></img>
+<img src="../img/formulation.JPG" width="40%" height="30%">
 ( µ : R^d에 존재하는 이미지들의 분포 의미 , k : 이미지의 label을 출력하는 분류 함수)
 <br/><br/>
 벡터 v는 다음의 조건을 만족한다. <br/>
 
-<img src="../img/constraint.JPG" width="40%" height="30%"></img>
+<img src="../img/constraint.JPG" width="40%" height="30%">
  (p ∈ [1, ∞)) <br/><br/>
 ξ를 통해서 perturbation의 크기를 조절할 수 있고 δ를 통해서 fooling rate를 조절할 수 있다. <br/><br/>
 
@@ -31,7 +31,7 @@ universal perturbation은 대부분의 x ∈  R^d에 대해서 다음 식을 만
 ###### Figure 2: Schematic representation of the proposed algorithm used to compute universal perturbations. In this illustration, data points x1, x2 and x3 are super-imposed, and the classification regions Ri (i.e., regions of constant estimated label) are shown in different colors. Our algorithm proceeds by aggregating sequentially the minimal perturbations sending the current perturbed points xi + v outside of the corresponding classification region Ri.
  **알고리즘** <br/>
 X = {x1,...,xm} 은 µ에서 추출한 이미지의 집합이라 하자. 알고리즘은 위의 노름 조건과 fooling rate를 만족하는 perturbation v를 찾고자 한다. 알고리즘은 Fig. 2와 같이 현재 perturbed point인 xi + v를 decision boundary로 보내는 가장 작은 ∆vi를 구한다. 그리고 ∆vi를 v에 더한다. (현재의 perturbation인 v가 xi의 classification region을 변경하지 못하면 ∆vi를 계산한다.) 위의 행위를 X의 data point에 대해서 반복한다. ∆vi는 아래의 최적화 문제를 통해 구할 수 있다. <br/><br/>
-<img src="../img/formulation2.JPG" width="40%" height="30%"></img>
+<img src="../img/formulation2.JPG" width="40%" height="30%">
 <br/><br/>
 알고리즘의 pseudo 코드는 다음과 같다.
 ![Alt text](../img/Algorithm.JPG)
