@@ -18,7 +18,8 @@ category : Machine Learning
 
 ## 2. Universal perturbations
 universal perturbation은 대부분의 x ∈  R^d에 대해서 다음 식을 만족하는 벡터 v를 찾는 것이다. <br/><br/> 
-<img src="../img/formulation.JPG" width="40%" height="30%">
+![Alt text](../img/formulation.JPG)
+<br/>
 ( µ : R^d에 존재하는 이미지들의 분포 의미 , k : 이미지의 label을 출력하는 분류 함수)
 <br/><br/>
 벡터 v는 다음의 조건을 만족한다. <br/>
