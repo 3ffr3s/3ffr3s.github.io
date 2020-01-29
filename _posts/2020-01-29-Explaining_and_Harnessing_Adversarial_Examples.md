@@ -39,10 +39,8 @@ weight 벡터 w와 adversarial example x˜의 dot product는 다음과 같다.
 <br/>
 adversarial perturbation은 activation을 w^T * η 만큼 증가시킨다. η에 sign(w)를 할당함으로써 위의 max norm constraint를 만족하면서 activation의 증가량을 최대화 할 수 있다. w가 n dimension을 갖고, weight 벡터 요소의 평균 값이 m 이라고 할 때 증가량은 εmn이다.
 <br/>
-
 **w의 dimension이 증가하면 ||η||_∞ 의 값은 영향을 받지 않지만 activaion의 증가량은 n에 선형하게 증가한다. 따라서 높은 dimension에서는 input의 극미한 변화가 output에 큰 변화를 일으킬 수 있다.**  
 <br/>
-
 위의 설명을 통해 단순한 linear 모델도 input이 충분한 dimension만 갖는다면 adversarial example을 갖을 수 있음을 알 수 있다. 이러한 선형성에 근거한 가설을 통해 softmax regression이 adversarial example에 취약한 이유를 설명할 수 있다. 
 
 ## Linear Perturbation of Non-linear Models
@@ -51,6 +49,7 @@ adversarial example에 대한 선형적인 관점을 이용하면 adversarial ex
 
 linear한 동작은 linear 모델의 비용이 적게 들고, 분석적인 perturbation이 neural network에도 적용됨을 의미한다. θ는 모델의 parameter를 의미하고, x는 input, y는 x와 관련된 target을 의미한다. 그리고 J(θ,x,y)는 neural network를 훈련하기 위한 cost function을 의미한다. 다음과 같이 cost function을 θ에서 선형화함으로써 최적의 max norm constrained perturbation을 얻을 수 있다. 
 <br/>
+
 ![Alt text](../img/Explaning_And_Harnessing_Adversarial_Examples/formulation1.JPG)
 <br/>
 위의 방식을 fast gradient sign method라고 한다. 
@@ -69,6 +68,7 @@ neural network가 선형적으로 동작할 것이라 가정
 
 출력 label y은 {-1,1} 의 값을 갖고 P(y=1) = σ(w^T * x + b)인  logistic regression 모델을 가정하자. (σ(z)는 logistic sigmoid 함수) 해당 모델은 아래의 함수에 대한 gradient descent을 통해 학습한다. 
 <br/>
+
 ![Alt text](../img/Explaning_And_Harnessing_Adversarial_Examples/formulation2.JPG)
 <br/>
 ζ(z) = log (1 + exp(z)) 는 softplus 함수이다.
@@ -76,8 +76,10 @@ neural network가 선형적으로 동작할 것이라 가정
 
 위의 함수에 대한 gradient의 sign 값은 -sign(w)이고 w^T * sign(w) = ||w||_1 이기 때문에 x의 adversarial perturbation에 대한 훈련은 아래의 식을 최소화 하는 것이다.
 <br/>
+
 ![Alt text](../img/Explaning_And_Harnessing_Adversarial_Examples/formulation3.JPG)
 <br/>
+
 이는 L1 규제와 비슷한 형태인데 큰 차이점이 존재한다. 우선 L1 규제는 훈련하는 동안 모델의 activation에서 L1 규제를 빼고, adversarial training은 값을 더한다. 
 <br/>
 
@@ -101,8 +103,10 @@ Intriguing properties of neural networks 논문에서 adversarial examples와 cl
 
 fgsm에 기반한 adversarial objective function에 대해 훈련하면 효과적인 규제 효과를 얻을 수 있다. 
 <br/>
+
 ![Alt text](../img/Explaning_And_Harnessing_Adversarial_Examples/formulation4.JPG)
 <br/>
+
 이 방식은 adversarial examples를 지속적으로 공급한다. dropout을 사용한 maxout network에 대해서 위의 objective function을 사용하면 error rate가 0.94에서 0.84%로 감소했다.
 <br/>
 
@@ -126,8 +130,10 @@ sign 함수의 미분 값은 0 또는 undefined이다. 따라서 adversarial obj
 ## Different Kinds of Model Capacity
 adversarial examples의 존재가 반직관적인 이유는 우리의 높은 차원의 공간에 대한 직관의 부족함 때문이다. 우리는 3차원의 공간에 살기 때문에 수 백개의 공간에서 작은 효과가 더해져서 하나의 큰 효과가 되는 것에 익숙하지 않다. 우리의 직관이 부족한 곳이 또 있는데, 많은 사람들은 모델의 capacity가 작으면 confident한 예측을 하지 못할 것이라고 생각한다. 하지만 아래와 같은 shallow RBF network는 µ 근처에 positive class가 존재하는 것을 confident하게 예측할 수 있다. 
 <br/>
+
 ![Alt text](../img/Explaning_And_Harnessing_Adversarial_Examples/RBF.JPG)
 <br/>
+
 또한, RBF network는 기본적으로 class가 없다고 예측하거나 low-confidence 예측을 한다. RBF network는 network가 속여졌을 때 low confidence한 예측을 한다는 점에서 adversarial example에 영향을 받지 않는다고 할 수 있다. hidden layer가 없는 shallow RBF network는 MNIST를 이용한 adversarial examples에 대해 error rate가 55.4%였다.  (ε = .25) 하지만 그때 잘못 예측한 경우에 대해서 confidence는 1.2%였다. RBF network의 clean test example에 대한 평균 confidence는 60.6%이다. 위와 같이 capacity가 작은 모델은 모든 포인트에 대해서 정확한 예측을 하지는 못하지만, 이해하지 못한 포인트에 대해서는 confidence를 줄임으로써 적절히 반응한다. 
 <br/>
 
@@ -140,7 +146,6 @@ linear 관점에서 보면 adversarial example은 매우 넓은 공간에서 발
 <br/>
 ![Alt text](../img/Explaning_And_Harnessing_Adversarial_Examples/Figure4.JPG)
 ###### Figure 4: By tracing out different values of ε, we can see that adversarial examples occur reliably for almost any sufficiently large value of ε provided that we move in the correct direction. Correct classifications occur only on a thin manifold where x occurs in the data. Most of R^n consists of adversarial examples and rubbish class examples (see the appendix). This plot was made from a naively trained maxout network. Left) A plot showing the argument to the softmax layer for each of the 10 MNIST classes as we vary ε on a single input example. The correct class is 4. We see that the unnormalized log probabilities for each class are conspicuously piecewise linear with ε and that the wrong classifications are stable across a wide region of ε values. Moreover, the predictions become very extreme as we increase ε enough to move into the regime of rubbish inputs. Right) The inputs used to generate the curve (upper left = negative ε, lower right = positive ε, yellow boxes indicate correctly classified inputs).
-<br/>
 왜 서로 다른 classifier가 adversarial example를 동일한 class로 분류하는지를 설명하기 위해서 현재의 방식으로 훈련된 neural network는 동일한 training set에서 훈련된 linear classifier와 비슷하다고 추측했다. neural network들은 머신러닝 알고리즘이 generalize하는 특성이 있기 때문에 서로 다른 training set에 대해서 훈련되어도 비슷한 weight를 갖게 된다. 따라서 이러한 근본적인 분류 weight의 안정성은 adversarial example의 안정성을 가져온다. 
 <br/>
 
