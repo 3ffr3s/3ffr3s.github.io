@@ -82,12 +82,12 @@ MNIST에 대해 훈련한 CNN에 대해서 이를 적용해봤다. I로 MNIST의
 
 ### 4.1. Formal description
 이미지 픽셀 값 벡터를 label set에 맵핑하는 classifier를 f : R^m \-\> {1...k} 로 표기한다. 그리고 f의 손실함수를 loss_f : R^m X {1...k} \-\> R^+로 표기한다. 이미지 x ∈ R^m 와  label l ∈ {1...k}에 대해서 다음과 같은 box-constrained optimization을 풀고자 한다. 
-- 다음의 조건을 만족하는 ||r||_2를 최소화한다. 
+- 다음의 조건을 만족하는 \|\|r\|\|_2를 최소화한다. 
     - f(x + r) = l
     - x + r  ∈ [0,1]^m
 
 최솟값 r은 유일하지 않지만 D(x,l)를 통해 구한 임의의 최소값을 r로 표기한다. 일반적으로 D(x,l)의 정확한 계산은 어려운 문제이므로, box-constrained L-BFGS를 사용해서 근사값을 구한다. 즉, 이 논문에서는 D(x,l)의 근사값을 다음의 식을 만족하는 최소 c > 0 을 찾기 위한 line search로 찾는다.
-- c|r| + loss_f(x + r,l) 을 최소화한다.
+- c\|r\| + loss_f(x + r,l) 을 최소화한다.
 
 이 패널티 함수는 손실 함수가 convex하면 D(X,l)에 대한 정확한 해를 찾는다. 하지만 일반적으로 neural network는 non-convex하기 때문에 이 경우에는 구한 해가 근사값이 된다.
 
@@ -124,26 +124,34 @@ Table 4는 각 모델에서 생성된 adversarial example을 서로 다른 모�
 
 수학적으로 input x 및 훈련된 parameter W에 대응하는 K개의 층으로 구성된 network의 output φ(x)를 다음과 같이 표현할 수 있다. 
 <br/>
+
 ![Alt text](../img/Intriguing_Properties_of_Neural_Networks/formulation3.JPG)
 <br/>
+
 φk는 k-1 층에서 k층으로 매핑하는 연산자를 의미한다. φ(x)의 불안정성은 각 layer k = 1...K의 upper Lipschitz constant 구함으로써 알 수 있다.  L_k > 0 은 다음과 같이 정의된다. 
 <br/>
+
 ![Alt text](../img/Intriguing_Properties_of_Neural_Networks/formulation4.JPG)
 <br/>
+
 따라서 전체 네트워크는 ||φ(x) - φ(x + r)|| <= L||r|| 를 만족한다. (L = L_1 * L_2 * ... * L_k)
 <br/>
 
 half-rectified 층은 φk(x;W_k,b_k) = max(0,W_k * x + b_k) 와 같이 정의한다. W의 operator norm을 ||W||로 표현한다. (즉, W의 largest singular value를 의미한다.) non-linearity p(x) = max(0,x) 는 contractive 하기 때문에 모든 x,r에 대해서 ||p(x) - p(x + r)|| <= ||r|| 을 만족한다. 또한 아래와 같은 식을 따른다.
 <br/>
+
 ![Alt text](../img/Intriguing_Properties_of_Neural_Networks/formulation5.JPG)
 <br/>
+
 따라서 L_k <= ||W_k|| 이다.
 <br/>
+
 max-pooling layer φk도 constractive하다. max-pooling layer의 Jacobian이 입력 좌표의 부분집합에 대한 projection이기 때문에 gradient를 증가시키지 않는다. 따라서 모든 x,r에 대해서 ||φk(x) - φk(x + r)|| <= ||r||을 만족한다. 
 <br/>
 
 결과적으로 network의 unstability는 fully connected layer나 convolution layer의 operator norm을 계산해서 측정할 수 있다. fully connected layer의 경우 fully connected 행렬의 largest singular value만 구하면 되기 때문에 쉽게 구할 수 있다. convolution layer의 operator norm 계산은 논문을 보면 알 수 있다. 
 <br/>
+
 ![Alt text](../img/Intriguing_Properties_of_Neural_Networks/table5.JPG)
 ###### Table 5: Frame Bounds of each rectified layer of the network from [9]
 table 5는 ImageNet deep convolutional network의 upper Lipschitz bounds를 계산한 것이다. 이를 통해서 처음 convolutional layer에서부터 instability한 것을 볼 수 있다.
