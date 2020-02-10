@@ -81,7 +81,7 @@ MNIST에 대해 훈련한 CNN에 대해서 이를 적용해봤다. I로 MNIST의
 어떤 의미에서, 위의 행위는 network에 의해 표현된 manifold를 효율적인 방식으로 (최적화를 통해) 돌아다니면서 input space에서 adversarial example을 찾는 것이다. adversarial examples는 manifold에서 낮은 확률의 영역 (pocket)에 해당한다. 따라서 단순히 input 근처에서의 랜덤 샘플링으로는 adversarial example을 찾기 힘들다. 
 
 ### 4.1. Formal description
-이미지 픽셀 값 벡터를 label set에 맵핑하는 classifier를 f : R^m \-\> {1...k} 로 표기한다. 그리고 f의 손실함수를 loss_f : R^m X {1...k} -> R^+로 표기한다. 이미지 x ∈ R^m 와  label l ∈ {1...k}에 대해서 다음과 같은 box-constrained optimization을 풀고자 한다. 
+이미지 픽셀 값 벡터를 label set에 맵핑하는 classifier를 f : R^m \-\> {1...k} 로 표기한다. 그리고 f의 손실함수를 loss_f : R^m X {1...k} \-\> R^+로 표기한다. 이미지 x ∈ R^m 와  label l ∈ {1...k}에 대해서 다음과 같은 box-constrained optimization을 풀고자 한다. 
 - 다음의 조건을 만족하는 ||r||_2를 최소화한다. 
     - f(x + r) = l
     - x + r  ∈ [0,1]^m
