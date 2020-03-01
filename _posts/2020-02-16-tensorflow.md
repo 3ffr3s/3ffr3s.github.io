@@ -55,3 +55,5 @@ padding = 'VALID' : output_spatial_shape[i] = ceil((input_spatial_shape[i] - (sp
 패딩을 추가하지 않는다. 따라서 윈도우가 움직이다가 남은 입력의 일부분이 윈도우 보다 작으면 해당 부분을 버린다. 
 (ceil : 올림)
 
+#### unhashable type: 'numpy.ndarray' error in tensorflow
+placeholder 변수의 이름과 input 변수의 이름이 같을 때 위의 에러가 발생한다.
