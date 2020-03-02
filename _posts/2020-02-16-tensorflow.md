@@ -58,13 +58,13 @@ padding = 'VALID' : output_spatial_shape[i] = ceil((input_spatial_shape[i] - (sp
 #### unhashable type: 'numpy.ndarray' error in tensorflow
 placeholder 변수의 이름과 input 변수의 이름이 같을 때 위의 에러가 발생한다.
 
-#### tf.train.import\_meta\_graph
-meta graph를 불러와서 graph(network)를 재생성한다. <br/>
+#### 모델 불러오기
+tf.train.import\_meta\_graph : meta graph를 불러와서 graph(network)를 재생성한다. <br/>
 meta graph : tensorflow graph 정보 (모든 variables, operations 등을 저장하고 있음) <br/>
 
 그런데 ```saver = tf.train.import_meta_graph('my_test_model-1000.meta')``` 이렇게 호출하면 이 코드 이전에 정의된 graph에 my\_test\_model\-1000.meta에 저장되어 있는 graph가 이어 붙는 방식으로 동작한다. 따라서 tf.train.import_meta_graph 함수 호출 전에 tf.reset\_default\_graph()를 호출해서 graph를 초기화 해주는 것이 좋다.
 <br/>
 
-graph에 이전에 저장된 변수 값들을 복구하기 위해서 ```saver.restore(sess, tf.train.lastest_checkpoint('./'))```를 호출한다.
+graph에 이전에 저장된 변수 값들을 복구하기 위해서 tf.train.import\_meta\_graph 호출 이후에 ```saver.restore(sess, tf.train.lastest_checkpoint('./'))```를 호출한다.
 
 
