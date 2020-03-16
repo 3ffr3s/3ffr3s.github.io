@@ -21,6 +21,7 @@ import os
 import matplotlib.pyplot as plt
 ```
 
+
 ## Lenet 구현
 #### 데이터 전처리
 ```python
@@ -35,6 +36,7 @@ def pre_data():
 
   return x_train, y_train, x_test, y_test
 ```
+
 
 #### Classifier 생성
 ```python
@@ -107,6 +109,7 @@ accuracy_operation = tf.reduce_mean(tf.cast(correct_prediction, tf.float32), nam
 saver = tf.train.Saver()
 ```
 
+
 #### Classifier 훈련
 ```python
 persisted_sess = tf.Session()
@@ -136,6 +139,7 @@ print ("Model Saved")
 persisted_sess.close()
 ```
 
+
 #### Classifier 평가
 ```python
 def evaluate(x_data, y_data):
@@ -158,6 +162,7 @@ with tf.Session() as sess:
   test_accuracy = evaluate(x_test,y_test)
   print ("Test Accuracy : {}".format(test_accuracy))
 ```
+
 
 #### DeepFool 구현
 ```python
@@ -252,6 +257,7 @@ def DeepFool(image, f, grad_fs, num_classes = 10, overshoot = 0.02, max_iter = 5
 
   return r_tot, loop_i, k_i, pert_image
 ```
+
 
 #### DeepFool 적용
 ```python
