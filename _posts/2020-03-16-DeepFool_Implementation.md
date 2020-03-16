@@ -290,4 +290,6 @@ ax2.set_title('perturbed image '+ 'prediction : ' + str(deepfool_pred))
 
 plt.show()
 ```
-
+<br/>
+#### DeepFool 알고리즘 실행 결과
+![Alt text](../img/DeepFool_Implementation/DeepFool_result.JPG)
