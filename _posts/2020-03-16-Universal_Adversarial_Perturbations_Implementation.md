@@ -11,18 +11,6 @@ Universal Adversarial Perturbation 생성 알고리즘을 텐서플로우 1.X를
 <br/>
 (저기에 있는 코드를 거의 그대로 따라했다.)
 
-## 필요한 모듈 import
-```python
-from keras.datasets import cifar10
-import tensorflow as tf
-from tensorflow.keras.layers import Flatten
-import numpy as np
-from keras.utils import to_categorical 
-from sklearn.utils import shuffle
-import os
-import matplotlib.pyplot as plt
-```
-
 ## Universal Adversarial Perturbation 
 ```python
 def proj_lp(v, xi, p):
