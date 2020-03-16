@@ -20,7 +20,7 @@ from sklearn.utils import shuffle
 import os
 import matplotlib.pyplot as plt
 ```
-
+<br/>
 
 ## Lenet 구현
 #### 데이터 전처리
@@ -36,8 +36,7 @@ def pre_data():
 
   return x_train, y_train, x_test, y_test
 ```
-
-
+<br/>
 #### Classifier 생성
 ```python
 def init_weight(shape):
