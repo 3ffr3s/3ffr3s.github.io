@@ -5,7 +5,9 @@ comments : true
 category : Machine Learning
 ---
 
-DeepFool 알고리즘을 텐서플로우 1.X를 이용해서 구현해보았다. 코드는 https://github.com/LTS4/universal를 참조했다. (저기에 있는 코드를 거의 그대로 따라했다.)
+DeepFool 알고리즘을 텐서플로우 1.X를 이용해서 구현해보았다.
+<br/>
+코드는 [](https://github.com/LTS4/universal)를 참조했다. (저기에 있는 코드를 거의 그대로 따라했다.)
 
 ## 필요한 모듈 import
 ```python
@@ -18,6 +20,7 @@ from sklearn.utils import shuffle
 import os
 import matplotlib.pyplot as plt
 ```
+<br/>
 
 ## Lenet 구현
 #### 데이터 전처리
@@ -33,6 +36,8 @@ def pre_data():
 
   return x_train, y_train, x_test, y_test
 ```
+<br/>
+
 #### Classifier 생성
 ```python
 def init_weight(shape):
@@ -103,6 +108,8 @@ correct_prediction = tf.equal(tf.argmax(logits, axis = 1),tf.argmax(y, axis =1),
 accuracy_operation = tf.reduce_mean(tf.cast(correct_prediction, tf.float32), name = 'accuracy_operation')
 saver = tf.train.Saver()
 ```
+<br/>
+
 #### Classifier 훈련
 ```python
 persisted_sess = tf.Session()
@@ -131,6 +138,8 @@ print ("Model Saved")
 
 persisted_sess.close()
 ```
+<br/>
+
 #### Classifier 평가
 ```python
 def evaluate(x_data, y_data):
@@ -153,6 +162,8 @@ with tf.Session() as sess:
   test_accuracy = evaluate(x_test,y_test)
   print ("Test Accuracy : {}".format(test_accuracy))
 ```
+<br/>
+
 #### DeepFool 구현
 ```python
 tf.reset_default_graph()
@@ -246,6 +257,7 @@ def DeepFool(image, f, grad_fs, num_classes = 10, overshoot = 0.02, max_iter = 5
 
   return r_tot, loop_i, k_i, pert_image
 ```
+<br/>
 
 #### DeepFool 적용
 ```python
